@@ -1,0 +1,103 @@
+#\DeclareLyXModule{Lecture design}
+#\DeclareCategory{Maths}
+#DescriptionBegin
+#Theorems for math classes
+#DescriptionEnd
+
+# Author: Hung Nguyen <ndgnuh@protonmail.com>
+Format 104
+ProvidesModule lecture-design
+
+Preamble
+    \usepackage{lecture-design}
+EndPreamble
+
+Counter definition
+	WithIn chapter
+End
+
+Style Definition
+	LaTeXName definition
+	LaTeXType Environment
+
+	LabelType Static
+	LabelCounter "definition"
+	LabelString "Definition \thedefinition. "
+	LabelFont
+		Series Bold
+	End
+	Margin First_Dynamic
+
+	RefPrefix "defn"
+	Argument 1
+		Mandatory 0
+		Requires 0
+		LabelString "Name"
+		MenuString "Name"
+		DefaultArg ""
+	EndArgument
+End 
+
+Counter problem
+	WithIn chapter
+End
+
+Style Problem
+    CopyStyle Definition
+	LaTeXName problem
+	LabelCounter "problem"
+	LabelString "Problem \theproblem. "
+    RefPrefix "prob"
+    Requires lecture-design
+End 
+
+Style Solution
+    CopyStyle Problem
+	LaTeXName solution
+	LabelString "Solution"
+    RefPrefix "sol"
+End 
+
+Style Proof
+    CopyStyle Solution
+	LaTeXName proof
+	LabelString "Proof"
+    RefPrefix "proof"
+End 
+
+Counter theorem
+    WithIn chapter
+End
+
+Style Theorem
+    CopyStyle Problem
+	LaTeXName theorem
+	LabelCounter "theorem"
+	LabelString "Theorem \thetheorem. "
+    RefPrefix "thm"
+End
+
+Style Definition
+    Requires amsthm
+    Preamble
+        \theoremstyle{definition}
+        \providecommand{\definitionname}{Definition}
+        \newtheorem{definition}{\definitionname}
+    EndPreamble
+End
+
+Counter Remark
+    WithIn chapter
+End
+
+Style Remark
+    CopyStyle Definition
+    LaTeXName remark
+    LabelString "Remark. "
+    RefPrefix "rem"
+    Preamble
+        \theoremstyle{theorem}
+        \providecommand{\remarkname}{Remark}
+        \newtheorem{remark}{\remarkname}
+    EndPreamble
+End

@@ -1,0 +1,18 @@
+%% Patch \not to be centered by default
+%% ====================================
+%% This is expactly the code of centernot.sty,
+%% Just with \not replaced by \oldnot
+\let\oldnot\not%
+\def\not{\mathpalette\@centernot}%
+\def\@centernot#1#2{%%
+  \mathrel{%
+    \rlap{%
+      \settowidth\dimen@{$\m@th#1{#2}$}%
+      \kern.5\dimen@
+      \settowidth\dimen@{$\m@th#1=$}%
+      \kern-.5\dimen@
+      $\m@th#1\oldnot$%
+    }%
+    {#2}%
+  }%
+}

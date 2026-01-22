@@ -1,3 +1,7 @@
+LYX_HOME := /usr/share/lyx
+TEX_HOME := $(shell kpsewhich -var-value=TEXMFHOME)
+STY_DIR := $(TEX_HOME)/tex/latex/lecture-design
+
 watch:
 	find -path "./src/*.sty" \
 		-or -name "*.tex" \
@@ -17,5 +21,12 @@ build:
 clean:
 	latexmk -C
 	rm -f lecture-design.sty
+
+install:
+	mkdir ~/.lyx/layouts/ -p
+	cp lecture-design.module ~/.lyx/layouts/
+	mkdir -p $(STY_DIR)
+	cp lecture-design.sty $(STY_DIR)/
+	python $(LYX_HOME)/configure.py
 
 .PHONY: watch dev clean build
