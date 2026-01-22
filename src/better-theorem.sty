@@ -1,5 +1,6 @@
 % Theorem controlling counter
 \newcounter{theorem}
+\newcounter{proof}
 \counterwithin{theorem}{chapter}
 
 % Provide names
@@ -14,7 +15,7 @@
 \newenvironment{proof_typeset}[1][\proofname]{\amsthmproof[#1]}{\endamsthmproof}
 
 % Theorem environment with numbering
-\theoremstyle{theorem}
+\theoremstyle{plain}
 \newtheorem{theorem-typeset}{\theoremname}[section]
 
 \ExplSyntaxOn
@@ -32,14 +33,17 @@
   \group_begin:
   \int_gincr:N \proof_count
   \bool_gset_true:N \theorem_has_proof
-  \str_set:Nx \l_proof_label {auto-proof:\int_use:N \proof_count}%
+  \str_set:Nx \l_proof_label {auto-proof.\int_use:N \proof_count}%
   \bool_if:NTF \theorem_show_proof {
     % Write label to .aux file
     % This has to be done manually because there is no counter
     % associated with the proof environment
+    \hyper@anchorstart{\l_proof_label}%
+    \hyper@anchorend
     \iow_now:Nx \@auxout {
-      \string\newlabel{\l_proof_label}{{\int_use:N
-      \proof_count}{\thepage}{untitled}{untitled}}
+      \string\newlabel{\l_proof_label}{
+        {\l_proof_label}{\thepage}{}{\l_proof_label}{}
+      }
     }
     \tl_if_blank:eTF {#1} {\amsthmproof} {\amsthmproof[#1]}
     #2

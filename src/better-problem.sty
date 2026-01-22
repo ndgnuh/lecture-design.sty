@@ -5,7 +5,7 @@
 \ExplSyntaxOn
 
 \cs_new:Npn \problemname {Problem}
-\cs_new:Npn \solutionname {Problem}
+\cs_new:Npn \solutionname {Solution}
 \cs_new:Npn \TypesetSolutionHint #1 {Hint: p.\,#1}
 \cs_new:Npn \TypesetSolutionSection #1 {Solutions~for~#1}
 
@@ -27,15 +27,18 @@
 \NewDocumentEnvironment{solution}{+b}{
   \group_begin:
   \bool_gset_true:N \problem_has_solution
-  \str_set:Nx \l_solution_label {auto-solution:\int_use:N \solution_count}
+  \str_set:Nx \l_solution_label {auto-solution.\int_use:N \solution_count}
   \int_gincr:N \solution_count
   \bool_if:NTF \showing_solution {
+    \hyper@anchorstart{\l_solution_label}%
+    \hyper@anchorend
     \iow_now:Nx \@auxout {
       \string\newlabel{\l_solution_label}{
-        {\int_use:N \proof_count}
+        {\int_use:N \solution_count}
         {\thepage}
-        {\solutionname~\int_use:N \solution_count}
-        {untitled}
+        {}
+        {\l_solution_label}
+        {}
       }
     }
     % Typeset solution and

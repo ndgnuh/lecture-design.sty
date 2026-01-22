@@ -23,9 +23,16 @@ Style Definition
 	LabelType Static
 	LabelCounter "definition"
 	LabelString "Definition \thedefinition. "
+	LabelSep xx
+
+	Font
+	  Shape Italic
+	EndFont
 	LabelFont
+        Shape Up
 		Series Bold
 	End
+
 	Margin First_Dynamic
 
 	RefPrefix "defn"
@@ -56,6 +63,12 @@ Style Solution
 	LaTeXName solution
 	LabelString "Solution"
     RefPrefix "sol"
+	Font
+	  Shape Up
+	EndFont
+	LabelFont
+        Shape Italic
+	End
 End 
 
 Style Proof
@@ -63,6 +76,12 @@ Style Proof
 	LaTeXName proof
 	LabelString "Proof"
     RefPrefix "proof"
+	Font
+	  Shape Up
+	EndFont
+	LabelFont
+        Shape Italic
+	End
 End 
 
 Counter theorem
@@ -75,6 +94,14 @@ Style Theorem
 	LabelCounter "theorem"
 	LabelString "Theorem \thetheorem. "
     RefPrefix "thm"
+
+	Font
+	  Shape Italic
+	EndFont
+	LabelFont
+		Series Bold
+        Shape Up
+	End
 End
 
 Style Definition
@@ -100,6 +127,7 @@ Style Remark
         \providecommand{\remarkname}{Remark}
         \newtheorem{remark}{\remarkname}
     EndPreamble
+
 End
 
 

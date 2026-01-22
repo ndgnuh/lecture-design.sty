@@ -1,0 +1,77 @@
+#\DeclareLyXModule{Lecture design (Vietnamese translation)}
+#\DeclareCategory{Maths}
+#DescriptionBegin
+#Vietnamese translation of the lecture design module.
+#DescriptionEnd
+
+# Author: Hung Nguyen <ndgnuh@protonmail.com>
+
+Preamble
+    \usepackage{lecture-design}
+    \def\problemname{Bài tập}
+    \def\definitionname{Định nghĩa}
+    \def\theoremname{Định lý}
+    \def\proofname{Chứng minh}
+    \def\solutionname{Lời giải}
+    \def\remarkname{Chú ý}
+    \def\TypesetSolutionHint#1{Giải: trang #1}
+    \def\TypesetSolutionSection#1{Giải bài tập cho #1}
+    \def\TypesetProofSection#1{Chứng minh cho #1}
+    \def\TypesetProofHint#1{Chứng minh: trang #1}
+    \SetMarkLabel{Example}{Ví dụ}
+    \SetMarkLabel{Quick}{Chữa nhanh}
+    \SetMarkLabel{Answer}{Đáp án}
+    \SetMarkLabel{Official index}{Index}
+    \SetMarkLabel{Must-do}{Nên chữa}
+    \SetMarkLabel{Danger}{Nguy hiểm}
+EndPreamble
+
+Style Definition
+	LabelString "Định nghĩa \thedefinition. "
+End 
+
+Style Problem
+	LabelString "Bài tập \theproblem. "
+End 
+
+Style Solution
+	LabelString "Lời giải. "
+End 
+
+Style Proof
+	LabelString "Chứng minh. "
+End 
+
+Style Theorem
+	LabelString "Định lý \thetheorem. "
+End
+
+Style Remark
+    LabelString "Chú ý. "
+End
+
+
+
+InsetLayout "Flex:Example mark|E"
+	LabelString			"Ví dụ"
+End
+
+InsetLayout "Flex:Quick mark|Q"
+    LabelString			"Chữa nhanh"
+End
+
+InsetLayout "Flex:Answer mark|A"
+    LabelString			"Đáp án"
+End
+
+InsetLayout "Flex:Official index mark|I"
+    LabelString			"Index"
+End
+
+InsetLayout "Flex:Must-do mark|M"
+    LabelString			"Nên chữa"
+End
+
+InsetLayout "Flex:Danger mark|D"
+    LabelString			"Nguy hiểm"
+End
