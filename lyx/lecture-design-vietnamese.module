@@ -20,8 +20,8 @@ Preamble
     \def\TypesetProofHint#1{Chứng minh: trang #1}
     \SetMarkLabel{Example}{Ví dụ}
     \SetMarkLabel{Quick}{Chữa nhanh}
-    \SetMarkLabel{Answer}{Đáp án}
-    \SetMarkLabel{Official index}{Index}
+    \SetMarkLabel{Answer}{Ans:~}
+    \SetMarkLabel{Official index}{Index:~}
     \SetMarkLabel{Must-do}{Nên chữa}
     \SetMarkLabel{Danger}{Nguy hiểm}
 EndPreamble
