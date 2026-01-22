@@ -1,0 +1,67 @@
+% Example marking
+\RequirePackage{xcolor}
+\RequirePackage{xcolor-material}
+\RequirePackage{tikz}
+
+\definecolor{fami-blue}{HTML}{0A6EAE}
+\definecolor{fami-light-blue}{HTML}{59C6D1}
+
+\ExplSyntaxOff
+\tikzstyle{marking} = [
+  rounded corners=5pt,
+  anchor = base,
+  inner sep=5pt,
+  align = center,
+]
+
+\ExplSyntaxOn
+\cs_new:Npn \new_marking:nnn #1#2#3 {
+  \cs_gset:cpn {#1MarkName} {#1}
+  \cs_gset:cpn {#1Mark} {
+    \begin{tikzpicture}[baseline]
+      \node[marking,fill=#2,draw=#3!75!black,text=#3!75!black]
+      {\use:c {#1MarkName}\vphantom{$\sum$}};
+    \end{tikzpicture}
+  }
+}
+
+\cs_new:Npn \new_dynamic_marking:nnn #1#2#3 {
+  \cs_new:cpn {#1MarkName} {#1:\,}
+  \cs_new:cpn {#1Mark} ##1 {
+    \begin{tikzpicture}[baseline]
+      \node[marking,fill=#2,draw=#3!75!black,text=#3!75!black]
+      {\use:c {#1MarkName}##1\vphantom{$\sum$}};
+    \end{tikzpicture}
+  }
+}
+
+\NewDocumentCommand{\NewMark}{smmm}{
+  \IfBooleanTF{#1}{
+    \new_dynamic_marking:nnn {#2} {#3} {#4}
+  }{
+    \new_marking:nnn {#2} {#3} {#4}
+  }
+}
+
+\NewDocumentCommand{\SetMarkLabel}{mm}{
+  \cs_gset:cpn {#1MarkName} {#2}
+}
+
+\new_marking:nnn {Example} {MaterialYellow100} {MaterialYellow700}
+\new_marking:nnn {MustDo} {MaterialIndigo100} {MaterialIndigo700}
+\new_marking:nnn {Quick} {MaterialOrange100} {MaterialOrange700}
+\new_dynamic_marking:nnn {Answer} {MaterialGreen100} {MaterialGreen700}
+\new_dynamic_marking:nnn {OfficialIndex} {fami-light-blue} {fami-blue}
+\new_dynamic_marking:nnn {Danger} {MaterialRed100} {MaterialRed700!75!black}
+\SetMarkLabel{Danger}{}
+\SetMarkLabel{Answer}{Ans:\,}
+\SetMarkLabel{Example}{Eg}
+\SetMarkLabel{MustDo}{must-do}
+
+\NewDocumentCommand{\NewStaticMark}{mmm}{
+  \new_marking:nnn {#1} {#2} {#3}
+}
+\NewDocumentCommand{\NewDynamicMark}{mmm}{
+  \new_dynamic_marking:nnn {#1} {#2} {#3}
+}
+\ExplSyntaxOff

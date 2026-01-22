@@ -101,3 +101,45 @@ Style Remark
         \newtheorem{remark}{\remarkname}
     EndPreamble
 End
+
+
+# Markings
+
+
+InsetLayout "Flex:Example mark|E"
+	LyXType				custom
+	LatexType			command
+	LatexName			ExampleMark
+	LabelString			"Example"
+	Decoration			"Classic"
+End
+
+InsetLayout "Flex:Quick mark|Q"
+    CopyStyle "Flex:Example mark|E"
+    LatexName			QuickMark
+    LabelString			"Quick"
+End
+
+InsetLayout "Flex:Answer mark|A"
+    CopyStyle "Flex:Example mark|E"
+    LatexName			AnswerMark
+    LabelString			"Answer"
+End
+
+InsetLayout "Flex:Official index mark|I"
+    CopyStyle "Flex:Example mark|E"
+    LatexName			OfficialIndexMark
+    LabelString			"Index"
+End
+
+InsetLayout "Flex:Must-do mark|M"
+    CopyStyle "Flex:Example mark|E"
+    LatexName			MustDoMark
+    LabelString			"MustDo"
+End
+
+InsetLayout "Flex:Danger mark|D"
+    CopyStyle "Flex:Example mark|E"
+    LatexName			DangerMark
+    LabelString			"Danger"
+End

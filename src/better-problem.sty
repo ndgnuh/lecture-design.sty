@@ -6,7 +6,7 @@
 
 \cs_new:Npn \problemname {Problem}
 \cs_new:Npn \solutionname {Problem}
-\cs_new:Npn \TypesetSolutionHint #1 {[See~solution~on~page: #1]}
+\cs_new:Npn \TypesetSolutionHint #1 {Hint: p.\,#1}
 \cs_new:Npn \TypesetSolutionSection #1 {Solutions~for~#1}
 
 % Typeset environments
@@ -46,10 +46,7 @@
       #1
     \end{solution-typeset}
   } {
-
-    \TypesetProofHint{\pageref{\l_solution_label}}
-    % Show hint with page number
-    % \hyperlink{\l_solution_label}{\TypesetSolutionHint{\pageref{\l_solution_label}}}
+    \TypesetSolutionHint{\pageref{\l_solution_label}}
   }
   \group_end:
 }{}

@@ -16,3 +16,11 @@
     {#2}%
   }%
 }
+
+% Spacing hacks for amsmath environments
+% ======================================
+\frenchspacing
+\let\oldleft\left
+\let\oldright\right
+\def\left{\mathopen{}\mathclose\bgroup\oldleft}
+\def\right{\aftergroup\egroup\oldright}
