@@ -1,0 +1,180 @@
+\documentclass[12pt]{book}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage[utf8]{vietnam}
+\usepackage{tgtermes}
+\usepackage{lipsum}
+\usepackage{tikz}
+\usetikzlibrary{tikzmark,arrows.meta,fit}
+\usepackage{centernot}
+\usepackage{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\geometry{a4paper, total={6in, 8in}}
+\everymath{\displaystyle}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem*{remark}{Remark}
+\usepackage{lecture-design}
+
+\usepackage{hyperref}
+
+\renewcommand{\TypesetSolutionHint}[1]{[Xem lời giải trang: #1]}
+\begin{document}
+\chapter{Chuỗi số}
+\section{Đại cương về chuỗi số}
+Khái niệm chuỗi số:
+\[
+  \overbrace{\sum_{n=1}^{\infty}a_{\tikzmark{shtq}n}=\underbrace{a_{1}+a_{2}+a_{3}+\cdots+a_{n}}_{{\displaystyle
+      S_{n}=\sum_{k=1}^{n}a_{k}}\textup{ tổng riêng thứ
+  }n}+\cdots}^{\textup{chuỗi số}}
+\]
+\begin{tikzpicture}[overlay, remember picture]
+  \draw[->, thick]
+  (pic cs:shtq) ++ (0, -2pt) -- ++(0,-1.5)
+  node[below] {Số hạng tổng quát};
+\end{tikzpicture}
+% \begin{definition}
+%   Hội tụ/phân kỳ:
+%   \begin{itemize}
+%     \item Chuỗi hội tụ:
+%       $\lim_{n\to+\infty}S_{n}=S\in\mathbb{R}\implies
+%       S=\sum_{n=1}^{\infty}a_{n}.$
+%     \item Chuỗi phân kỳ: $\lim_{n\to+\infty}S_{n}=\infty$ hoặc
+%       $\centernot{\exists}\lim_{n\to+\infty}S_{n}$
+%   \end{itemize}
+% \end{definition}
+
+\begin{problem}
+  BAC
+\end{problem}
+
+\begin{theorem}
+  Một số tính chất:
+  \begin{itemize}
+    \item Chuỗi $\sum_{n=1}^{\infty}a_{n}$ và $\sum_{n=N_{0}}^{+\infty}a_{n}$
+      cùng hội tụ/phân kỳ.
+    \item Tuyến tính $\sum_{n=1}^{+\infty}\left(\alpha a_{n}+\beta
+      b_{n}\right)=\alpha.\left(\sum_{n=1}^{+\infty}a_{n}\right)+\beta\cdot\left(\sum_{n=1}^{+\infty}b_{n}\right)$
+    \item $\sum_{n=1}^{+\infty}a_{n}$ hội tụ $\substack{\implies\\
+        \centernot{\impliedby}
+      }
+      \lim_{n\to+\infty}a_{n}=0$
+  \end{itemize}
+\end{theorem}
+
+\begin{problem}
+  Xét hội tụ, phân kỳ chuỗi (TCSS)
+  \[
+    \sum_{n=1}^{+\infty}\sin\left(\frac{1}{n^{k}}\right), k>0
+  \]
+
+  \begin{solution}
+    \begin{enumerate}
+      \item $\frac{1}{n^{2}}<\frac{\pi}{2}, \frac{1}{n^{2}}$ giảm, chuỗi dương
+      \item $ \sin\frac{1}{n^{2}}\sim\frac{1}{n^{2}},n\to+\infty $
+    \end{enumerate}
+  \end{solution}
+\end{problem}
+
+\begin{problem}[Phần 3]%
+  Xét hội t\d{u}, phân k\`{y} chuỗi (cho các tiêu chuẩn còn l\d{a}i)
+
+  \begin{enumerate}
+    \item $\sum_{n=1}^{+\infty}\frac{n^{2}}{\alpha^{n}}$ $\alpha>1$ (Answer: HT)
+      \begin{solution}
+        asdasd
+      \end{solution}
+    \item $\sum_{n=1}^{\infty}\frac{\left(3n+4\right)!}{n^{2}5^{n}}$,
+      \begin{solution}
+        \begin{enumerate}
+          \item Đặt $a_{n}=\frac{n^{2}}{\alpha^{n}}$,
+            $a_{n+1}=\frac{\left(n+1\right)^{2}}{\alpha^{n+1}}=\frac{n^{2}+2n+1}{\alpha\cdot\alpha^{n}}$
+          \item Có
+            $\frac{a_{n+1}}{a_{n}}=\frac{n^{2}+2n+1}{\alpha\cdot\alpha^{n}}\cdot\frac{\alpha^{n}}{n^{2}}=\frac{1}{\alpha}\cdot\frac{n^{2}+2n+1}{\alpha}\to\frac{1}{\alpha}$
+            khi $n\to\infty$
+          \item Nếu $\alpha>1$, chuỗi HT (D\textbackslash Alembert)
+          \item Nếu $\alpha<1$ chuỗi PK
+          \item Nếu $\alpha=1$, $a_{n}=n^{2}$, $\sum_{n=1}^{+\infty}a_{n}$ PK
+        \end{enumerate}
+      \end{solution}
+    \item $\sum_{n=1}^{+\infty}\frac{an+b}{cn+d}$ $a,b,c,d>0$,
+  \end{enumerate}
+\end{problem}
+
+\section{Section 2}
+content:
+\begin{problem}
+
+  x
+
+  \begin{equation}
+    \int_{1}^{\infty} f(x)dx
+  \end{equation}
+  \begin{solution}
+    solution
+
+  \end{solution}
+\end{problem}
+
+\begin{theorem}[So sánh 1 -- Direct comparison]
+  \label{thm:tc-so-sanh-1} $0\le a_{n}\le b_{n}$ $\forall n\ge
+  N_{0}\in\mathbb{N}$,
+  \begin{enumerate}
+    \item (B) HT $\implies$(A) HT
+    \item (A) PK $\implies$ (B) PK
+  \end{enumerate}
+  \begin{proof}
+    \begin{itemize}
+      \item K mất tổng quát, $N_{0}=1$, $a_{n}\le b_{n}$ với $\forall n\ge1$,
+        $\sum_{n=1}^{+\infty}b_{n}$ HT, thì $\sum_{n=1}^{+\infty}a_{n}$
+      \item Đặt:
+        \begin{align*}
+          A_{n} & =a_{1}+a_{2}+a_{3}+\cdots+a_{n},\\
+          B_{n} & =b_{1}+b_{2}+b_{3}+\cdots+b_{n},
+        \end{align*}
+      \item Đặt $B_{n}=\sum_{n=1}^{N}b_{n}$, $\lim_{n\to\infty}B_{n}=B$. Vì
+        $b_{n}$ dương, nên $B_{n}$ là dãy tăng, do đó $B_{n}\le B$.Vì
+        $a_{n}\le b_{n}$
+        nên $A_{n}\le B_{n}\le B$.
+      \item Chuỗi dương nên $A_{n}$ tăng, mà $A_{n}\le B$ do đó
+        $\exists\lim_{n\to\infty}A_{n}\in\mathbb{R}$.
+      \item Ngược lại, giả sử $A_{n}$ phân kỳ nhưng $B_{n}\to B$, khi đó $A_{n}$
+        tăng và bị chặn $\implies$ luôn hội tụ $\implies$ mâu thuẫn
+      \item Do đó nếu $A_{n}$ phân kỳ thì $B_{n}$ phân kỳ. \qedhere
+    \end{itemize}
+  \end{proof}
+\end{theorem}
+
+\begin{theorem}
+  \begin{proof}
+    \begin{itemize}
+      \item K mất tổng quát, $N_{0}=1$, $a_{n}\le b_{n}$ với $\forall n\ge1$,
+        $\sum_{n=1}^{+\infty}b_{n}$ HT, thì $\sum_{n=1}^{+\infty}a_{n}$
+      \item Đặt:
+        \begin{align*}
+          A_{n} & =a_{1}+a_{2}+a_{3}+\cdots+a_{n},\\
+          B_{n} & =b_{1}+b_{2}+b_{3}+\cdots+b_{n},
+        \end{align*}
+      \item Đặt $B_{n}=\sum_{n=1}^{N}b_{n}$, $\lim_{n\to\infty}B_{n}=B$. Vì
+        $b_{n}$ dương, nên $B_{n}$ là dãy tăng, do đó $B_{n}\le B$.Vì
+        $a_{n}\le b_{n}$
+        nên $A_{n}\le B_{n}\le B$.
+      \item Chuỗi dương nên $A_{n}$ tăng, mà $A_{n}\le B$ do đó
+        $\exists\lim_{n\to\infty}A_{n}\in\mathbb{R}$.
+      \item Ngược lại, giả sử $A_{n}$ phân kỳ nhưng $B_{n}\to B$, khi đó $A_{n}$
+        tăng và bị chặn $\implies$ luôn hội tụ $\implies$ mâu thuẫn
+      \item Do đó nếu $A_{n}$ phân kỳ thì $B_{n}$ phân kỳ. \qedhere
+    \end{itemize}
+  \end{proof}
+\end{theorem}
+
+\chapter{Chứng minh}
+%
+\ShowProofs
+%  \GetArr{problem-body}{2}
+\chapter{Giải bài tập}
+
+\ShowSolutions
+\end{document}

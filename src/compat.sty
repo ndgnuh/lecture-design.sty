@@ -1,0 +1,25 @@
+%% Make this package compat with older versions of expl
+\ExplSyntaxOn
+\cs_if_exist:NF \cs_set:Npe
+{
+  \cs_new_protected:Npn \cs_set:Npe #1#2
+  {
+    \cs_set:Npx #1 { \exp_not:n {#2} }
+  }
+}
+
+\cs_if_exist:NF \cs_set:cpe
+{
+  \cs_new_protected:Npn \cs_set:cpe #1#2
+  {
+    \cs_set:cpx {#1} { \exp_not:n {#2} }
+  }
+}
+
+\cs_if_exist:NF \cs_gset:cpe
+{
+  \cs_new_protected:Npn \cs_gset:cpe #1#2
+  {
+    \cs_gset:cpx {#1} { \exp_not:n {#2} }
+  }
+}

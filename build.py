@@ -88,15 +88,16 @@ def parse_entrypoint(content: str) -> list[Element]:
 
 
 # Include all the subsequent inputs
-def resolve(content: str) -> str:
+def resolve(content: str, base_dir: str) -> str:
     segments = parse_entrypoint(content)
     buffer = StringIO()
     for segment in segments:
         match segment:
             case Input(src=src_file):
+                src_file = path.join(base_dir, src_file)
                 with open(src_file, "r", encoding="utf-8") as infile:
                     input_content = infile.read()
-                included_content = resolve(input_content)
+                included_content = resolve(input_content, base_dir)
                 buffer.write(included_content)
             case Text(content=text):
                 buffer.write(text)
@@ -112,20 +113,21 @@ def build(input_file: str, output_file: str) -> None:
         content = infile.read()
 
     # Simulate some build process (e.g., minification, bundling, etc.)
-    content = resolve(content)
+    base_dir = path.dirname(input_file)
+    content = resolve(content, base_dir)
     segments = parse_entrypoint(content)
 
     # Sort segments so that UsePackage comes first
     # And preserve the order of other segments
-    sorted_segments = []
-
-    for seg in segments:
-        if isinstance(seg, UsePackage) and seg not in sorted_segments:
-            sorted_segments.append(seg)
-    for seg in segments:
-        if not isinstance(seg, UsePackage):
-            sorted_segments.append(seg)
-    segments = sorted_segments
+    # sorted_segments = []
+    #
+    # for seg in segments:
+    #     if isinstance(seg, UsePackage) and seg not in sorted_segments:
+    #         sorted_segments.append(seg)
+    # for seg in segments:
+    #     if not isinstance(seg, UsePackage):
+    #         sorted_segments.append(seg)
+    # segments = sorted_segments
 
     with open(output_file, "w", encoding="utf-8") as buffer:
         for segment in segments:
@@ -133,6 +135,7 @@ def build(input_file: str, output_file: str) -> None:
                 case Text(content=text):
                     buffer.write(text)
                 case Input(src=src_file):
+                    src_file = path.join(base_dir, src_file)
                     with open(src_file, "r", encoding="utf-8") as infile:
                         built_content = infile.read()
                     buffer.write("%% Included from %s\n" % src_file)

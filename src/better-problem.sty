@@ -1,0 +1,124 @@
+% Controller problem counter
+\newcounter{problem}
+\counterwithin{problem}{chapter}
+
+\ExplSyntaxOn
+
+\cs_new:Npn \problemname {Problem}
+\cs_new:Npn \solutionname {Problem}
+\cs_new:Npn \TypesetSolutionHint #1 {[See~solution~on~page: #1]}
+\cs_new:Npn \TypesetSolutionSection #1 {Solutions~for~#1}
+
+% Typeset environments
+\newtheorem{problem-typeset}{\problemname}[chapter]
+\newtheorem{solution-typeset}{\solutionname}
+
+\bool_new:N \showing_solution
+\bool_set_false:N \showing_solution
+
+\int_new:N \solution_count
+\int_new:N \solution_within_problem_idx
+\int_new:N \problem_count
+\seq_new:N \problem_ids
+\bool_new:N \problem_has_solution
+\str_new:N \l_solution_label
+
+\NewDocumentEnvironment{solution}{+b}{
+  \group_begin:
+  \bool_gset_true:N \problem_has_solution
+  \str_set:Nx \l_solution_label {auto-solution:\int_use:N \solution_count}
+  \int_gincr:N \solution_count
+  \bool_if:NTF \showing_solution {
+    \iow_now:Nx \@auxout {
+      \string\newlabel{\l_solution_label}{
+        {\int_use:N \proof_count}
+        {\thepage}
+        {\solutionname~\int_use:N \solution_count}
+        {untitled}
+      }
+    }
+    % Typeset solution and
+    % Create hypertarget for hyperlinking
+    \int_gincr:N \solution_within_problem_idx
+    \cs_set:cpx {thesolution-typeset} {\int_use:N \solution_within_problem_idx}
+    \begin{solution-typeset}
+      #1
+    \end{solution-typeset}
+  } {
+
+    \TypesetProofHint{\pageref{\l_solution_label}}
+    % Show hint with page number
+    % \hyperlink{\l_solution_label}{\TypesetSolutionHint{\pageref{\l_solution_label}}}
+  }
+  \group_end:
+}{}
+
+\NewDocumentEnvironment{problem}{O{}+b}{
+  \group_begin:
+  \refstepcounter{problem}
+  \bool_set_false:N \problem_has_solution
+  \int_gincr:N \problem_count
+  \cs_set:Npe \Id {\int_use:N \problem_count}
+  \seq_gput_right:Nx \problem_ids {\Id}
+  \cs_gset:cpn {problem-body.\Id} {#2}
+  \cs_gset:cpn {problem-name.\Id} {#1}
+  \cs_gset:cpx {problem-number.\Id} {\theproblem}
+  \cs_gset:cpx {problem-section.\Id} {\thesection}
+  \cs_set:cpx {theproblem-typeset} {\theproblem}
+  \begin{problem-typeset}
+    #2
+  \end{problem-typeset}
+  \bool_new:c {problem-has-solution.\Id}
+  \bool_if:NTF \problem_has_solution {
+    \bool_gset_true:c {problem-has-solution.\Id}
+  } {
+    \bool_gset_false:c {problem-has-solution.\Id}
+  }
+  \group_end:
+}{}
+
+\NewDocumentCommand{\ShowSolutions}{}{
+  \group_begin:
+  \int_gset:Nn \solution_count {0} % reset solution counter
+  \str_set:Nn \l_tmpa_str {} % store previous section
+  \bool_gset_true:N \showing_solution % mark that we are showing solutions
+
+  % Loop over problems
+  \seq_map_inline:Nn \problem_ids {
+    % Only print if the problem has solution
+    \bool_if:cT {problem-has-solution.##1} {
+      % Make amsthm use this number
+      \cs_set:cpx {theproblem-typeset} {\use:c {problem-number.##1}}
+      \int_gset:Nn \solution_within_problem_idx {0}
+
+      % If previous section is different,
+      % print it and set previous section to current
+      \str_set:Nx \l_tmpb_str {
+      \use:c {problem-section.##1}}
+      \str_if_eq:NNF \l_tmpa_str \l_tmpb_str {
+        \section{\TypesetSolutionSection{\use:c {problem-section.##1}}}
+      }
+      \str_set:Nx \l_tmpa_str {\use:c {problem-section.##1}}
+
+      % Typeset the problem, show the name optionally
+      % Show name of problem (optionally)
+      \cs_set:Npx \Title {
+      \use:c {problem-name.##1}}
+      \cs_set:Npn \Body {
+      \use:c {problem-body.##1}}
+      \tl_if_blank:eTF {\Title} {
+        \begin{problem-typeset}
+          \Body
+        \end{problem-typeset}
+      } {
+        \begin{problem-typeset}[\Title]
+          \Body
+        \end{problem-typeset}
+      }
+    }
+  }
+
+  % Restore the flag
+  \bool_gset_false:N \showing_solution
+  \group_end:
+}

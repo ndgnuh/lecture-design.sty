@@ -1,0 +1,124 @@
+% Theorem controlling counter
+\newcounter{theorem}
+\counterwithin{theorem}{chapter}
+
+% Provide names
+\providecommand{\theoremname}{Theorem}
+\providecommand{\proofname}{Proof}
+\providecommand{\TypesetProofSection}[1]{Proofs~for~#1}
+\providecommand{\TypesetProofHint}[1]{[See~proof~on~page:~#1]}
+
+% Rename the proof environment to patch it
+\NewCommandCopy{\amsthmproof}{\proof}
+\NewCommandCopy{\endamsthmproof}{\endproof}
+\newenvironment{proof_typeset}[1][\proofname]{\amsthmproof[#1]}{\endamsthmproof}
+
+% Theorem environment with numbering
+\newtheorem{theorem-typeset}{\theoremname}[section]
+
+\ExplSyntaxOn
+
+\int_new:N \theorem_count
+\int_new:N \proof_count
+\bool_new:N \theorem_show_proof
+\bool_new:N \theorem_has_proof
+\bool_gset_false:N \theorem_show_proof
+\bool_gset_false:N \theorem_has_proof
+\seq_new:N \theorem_ids
+\str_new:N \l_proof_label
+
+\RenewDocumentEnvironment{proof}{O{}+b}{
+  \group_begin:
+  \int_gincr:N \proof_count
+  \bool_gset_true:N \theorem_has_proof
+  \str_set:Nx \l_proof_label {auto-proof:\int_use:N \proof_count}%
+  \bool_if:NTF \theorem_show_proof {
+    % Write label to .aux file
+    % This has to be done manually because there is no counter
+    % associated with the proof environment
+    \iow_now:Nx \@auxout {
+      \string\newlabel{\l_proof_label}{{\int_use:N
+      \proof_count}{\thepage}{untitled}{untitled}}
+    }
+    \tl_if_blank:eTF {#1} {\amsthmproof} {\amsthmproof[#1]}
+    #2
+    \endamsthmproof{}
+  } {
+    \TypesetProofHint{\pageref{\l_proof_label}}
+  }
+  \group_end:
+}{}%
+
+\NewDocumentEnvironment{theorem}{O{}+b}{
+  \group_begin:
+  % Increase counter and mark the theorem has no proof by default
+  \bool_gset_false:N \theorem_has_proof
+  \int_gincr:N \theorem_count
+  \cs_set:Npe \Id {\int_use:N \theorem_count}
+  \stepcounter{theorem}
+
+  % Store theorem id
+  \seq_gput_right:Nx \theorem_ids {\Id}
+  \cs_gset:cpn {theorem-body.\Id} {#2}
+  \cs_gset:cpn {theorem-name.\Id} {#1}
+  \cs_gset:cpe {theorem-number.\Id} {\thetheorem}
+  \cs_gset:cpe {theorem-section.\Id} {\thesection}
+  \typeset_theorem:nnn {#1} {#2} {\thetheorem}
+
+  % Store if the theorem has a proof
+  % Do not use \bool_set_eq:cN because the value of \theorem_has_proof
+  % will be overriden in the next theorem
+  \bool_new:c {theorem-has-proof.\Id}
+  \bool_if:NTF \theorem_has_proof {
+    \bool_gset_true:c {theorem-has-proof.\Id}
+  } {
+    \bool_gset_false:c {theorem-has-proof.\Id}
+  }
+
+  \group_end:
+}{}%
+
+\cs_new:Nn \typeset_theorem:nnn {
+  \cs_set:cpx {thetheorem-typeset} {#3}
+  \tl_if_blank:eTF {#1} {%
+    \begin{theorem-typeset}
+      #2
+    \end{theorem-typeset}
+  } {
+    \begin{theorem-typeset}[#1]
+      #2
+    \end{theorem-typeset}
+  }
+}
+\cs_generate_variant:Nn \typeset_theorem:nnn { nen }
+
+\cs_new:Npn \ShowProofs {
+  \group_begin:
+  \int_gset:Nn \proof_count {0}
+  \cs_set:Npn \label ##1 {}
+  \bool_gset_true:N \theorem_show_proof
+  \str_set:Nn \l_tmpa_str {}
+  \seq_map_inline:Nn \theorem_ids {
+    % Make amsthm use this number
+    \cs_set:cpx {thetheorem-typeset} {\use:c {theorem-number.##1}}
+    \bool_if:cT {theorem-has-proof.##1} {
+      % If previous section is different,
+      % print it
+      \str_set:Nx \l_tmpb_str {\use:c {theorem-section.##1}}
+      \str_if_eq:NNF \l_tmpa_str \l_tmpb_str {
+        \section{\TypesetProofSection{\S\use:c {theorem-section.##1}}}
+      }
+      % Set previous section to current
+      \str_set:Nx \l_tmpa_str {\use:c {theorem-section.##1}}
+      % Typeset the theorem
+      \typeset_theorem:nnn
+      {\use:c {theorem-name.##1}}
+      {\use:c {theorem-body.##1}}
+      {\use:c {theorem-number.##1}}
+    }
+  }
+  \bool_gset_false:N \theorem_show_proof
+  \group_end:
+}
+
+\ExplSyntaxOff
