@@ -75,6 +75,10 @@ New marks can be defined using:
 \NewMark*{<MarkName>}{<BackgroundColor>}{<Border/TextColor>}
 ```
 
+### Theorems
+
+Asides from `theorem`, `proof`, `problem`, and `solution` environments, the package also provides other theorem-like environments: `definition` and `remark`.
+
 ### Localization
 
 To localize the package to another language, redefine the following commands in the preamble:
@@ -97,3 +101,7 @@ To localize the package to another language, redefine the following commands in 
 \SetMarkLabel{Must-do}{Nên chữa}
 \SetMarkLabel{Danger}{[!]~}
 ```
+
+### Lyx
+
+Use the `Lecture design` module in LyX's document settings. `theorem`, `proof`, `problem`, and `solution` environments will be available in LyX as paragraph styles. The marks will be available in the `Insert -> Custom Insets` menu.
