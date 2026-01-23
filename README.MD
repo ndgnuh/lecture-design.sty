@@ -4,12 +4,23 @@ A LaTeX package for designing teaching materials.
 
 ## Install
 
+
 Clone the repository and run:
 ```bash
-make install
+make install-tex
 ```
 
-If you use LyX, also run reconfigure in LyX's GUI.
+If you use LyX. Also run this command:
+```bash
+make install-lyx    
+```
+then run reconfigure in LyX's GUI.
+
+Alternatively, you can manually build the `.sty` using:
+```bash
+python build.py
+```
+Then, copy `lecture-design.sty` to your local texmf tree, e.g., `~/texmf/tex/latex/lecture-design/`.
 
 ## Usage
 

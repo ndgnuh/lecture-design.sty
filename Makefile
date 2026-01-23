@@ -24,10 +24,16 @@ clean:
 	latexmk -C
 	rm -f lecture-design.sty
 
-install:
-	mkdir $(LYX_LAYOUTS) -p
-	cp lyx/* $(LYX_LAYOUTS)/
+install-tex:
 	mkdir -p $(STY_DIR)
 	cp lecture-design.sty $(STY_DIR)/
+
+install-lyx:
+	mkdir $(LYX_LAYOUTS) -p
+	cp lyx/* $(LYX_LAYOUTS)/
+
+install:
+	make install-tex
+	make install-lyx
 
 .PHONY: watch dev clean build
