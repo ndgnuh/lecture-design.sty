@@ -33,6 +33,7 @@ install-lyx:
 	cp lyx/* $(LYX_LAYOUTS)/
 
 install:
+	make build
 	make install-tex
 	make install-lyx
 
