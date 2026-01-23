@@ -11,3 +11,8 @@ design package for typesetting lecture notes}
 \input{markups.sty}
 \input{better-theorem.sty}
 \input{better-problem.sty}
+
+\NewMark*{SolutionHint}{MaterialPurple100}{MaterialPurple700}
+\NewMark*{ProofHint}{MaterialPurple100}{MaterialPurple700}
+\def\TypesetSolutionHint#1{\SolutionHintMark{#1}}
+\def\TypesetProofHint#1{\ProofHintMark{#1}}

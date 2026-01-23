@@ -14,16 +14,16 @@ Preamble
     \def\proofname{Chứng minh}
     \def\solutionname{Lời giải}
     \def\remarkname{Chú ý}
-    \def\TypesetSolutionHint#1{Giải: trang #1}
-    \def\TypesetSolutionSection#1{Giải bài tập cho #1}
     \def\TypesetProofSection#1{Chứng minh cho #1}
-    \def\TypesetProofHint#1{Chứng minh: trang #1}
+    \def\TypesetSolutionSection#1{Lời giải cho~#1}
+    \SetMarkLabel{SolutionHint}{Giải:~tr.\,}
+    \SetMarkLabel{ProofHint}{C/M:~tr.\,}
     \SetMarkLabel{Example}{Ví dụ}
     \SetMarkLabel{Quick}{Chữa nhanh}
     \SetMarkLabel{Answer}{Ans:~}
     \SetMarkLabel{Official index}{Index:~}
     \SetMarkLabel{Must-do}{Nên chữa}
-    \SetMarkLabel{Danger}{Nguy hiểm}
+    \SetMarkLabel{Danger}{[!]~}
 EndPreamble
 
 Style Definition

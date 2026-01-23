@@ -20,7 +20,7 @@
 
 \usepackage{hyperref}
 
-\renewcommand{\TypesetSolutionHint}[1]{[Xem lời giải trang: #1]}
+% \renewcommand{\TypesetSolutionHint}[1]{[Xem lời giải trang: #1]}
 \begin{document}
 \chapter{Chuỗi số}
 \section{Đại cương về chuỗi số}
@@ -35,16 +35,8 @@ Khái niệm chuỗi số:
   (pic cs:shtq) ++ (0, -2pt) -- ++(0,-1.5)
   node[below] {Số hạng tổng quát};
 \end{tikzpicture}
-% \begin{definition}
-%   Hội tụ/phân kỳ:
-%   \begin{itemize}
-%     \item Chuỗi hội tụ:
-%       $\lim_{n\to+\infty}S_{n}=S\in\mathbb{R}\implies
-%       S=\sum_{n=1}^{\infty}a_{n}.$
-%     \item Chuỗi phân kỳ: $\lim_{n\to+\infty}S_{n}=\infty$ hoặc
-%       $\centernot{\exists}\lim_{n\to+\infty}S_{n}$
-%   \end{itemize}
-% \end{definition}
+\ref{defn:chuoi-htpk}
+\hyperlink{chproof}{Xem Chứng minh ở Chương 2}.
 
 \begin{problem}
   BAC
@@ -82,7 +74,8 @@ Khái niệm chuỗi số:
   Xét hội t\d{u}, phân k\`{y} chuỗi (cho các tiêu chuẩn còn l\d{a}i)
 
   \begin{enumerate}
-    \item $\sum_{n=1}^{+\infty}\frac{n^{2}}{\alpha^{n}}$ $\alpha>1$ (Answer: HT)
+    \item $\sum_{n=1}^{+\infty}\frac{n^{2}}{\alpha^{n}}$ $\alpha>1$
+      \AnswerMark{HT nếu $\alpha>1$; PK nếu $\alpha\le1$}
       \begin{solution}
         asdasd
       \end{solution}
@@ -111,7 +104,7 @@ content:
 
   \begin{equation}
     \int_{1}^{\infty} f(x)dx
-  \end{equation}
+  \end{equation}\ExampleMark{}\QuickMark{}
   \begin{solution}
     solution
 
@@ -142,10 +135,16 @@ content:
         $\exists\lim_{n\to\infty}A_{n}\in\mathbb{R}$.
       \item Ngược lại, giả sử $A_{n}$ phân kỳ nhưng $B_{n}\to B$, khi đó $A_{n}$
         tăng và bị chặn $\implies$ luôn hội tụ $\implies$ mâu thuẫn
+        \pageref{fig:test}
       \item Do đó nếu $A_{n}$ phân kỳ thì $B_{n}$ phân kỳ. \qedhere
     \end{itemize}
   \end{proof}
 \end{theorem}
+\begin{figure}
+  \includegraphics[width=0.5\textwidth]{example-image-golden}
+  \caption{ABC}
+  \label{fig:test}
+\end{figure}
 
 \begin{theorem}
   \begin{proof}
@@ -170,7 +169,21 @@ content:
   \end{proof}
 \end{theorem}
 
+\begin{definition}
+  \label{defn:chuoi-htpk}
+  Hội tụ/phân kỳ:
+  \begin{itemize}
+    \item Chuỗi hội tụ:
+      $\lim_{n\to+\infty}S_{n}=S\in\mathbb{R}\implies
+      S=\sum_{n=1}^{\infty}a_{n}.$
+    \item Chuỗi phân kỳ: $\lim_{n\to+\infty}S_{n}=\infty$ hoặc
+      $\centernot{\exists}\lim_{n\to+\infty}S_{n}$
+  \end{itemize}
+\end{definition}
+
 \chapter{Chứng minh}
+
+\hypertarget{chproof}{}
 %
 \ShowProofs
 %  \GetArr{problem-body}{2}
