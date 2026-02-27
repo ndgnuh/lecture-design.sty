@@ -14,6 +14,7 @@ Preamble
     \def\proofname{Chứng minh}
     \def\solutionname{Lời giải}
     \def\remarkname{Chú ý}
+    \def\examplename{Ví dụ}
     \def\TypesetProofSection#1{Chứng minh cho #1}
     \def\TypesetSolutionSection#1{Lời giải cho~#1}
     \SetMarkLabel{SolutionHint}{Giải:~tr.\,}
@@ -46,10 +47,13 @@ Style Theorem
 	LabelString "Định lý \thetheorem. "
 End
 
+Style Example
+	LabelString "Ví dụ \theexample. "
+End
+
 Style Remark
     LabelString "Chú ý. "
 End
-
 
 
 InsetLayout "Flex:Example mark|E"

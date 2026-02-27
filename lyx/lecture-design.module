@@ -127,12 +127,25 @@ Style Remark
         \providecommand{\remarkname}{Remark}
         \newtheorem{remark}{\remarkname}
     EndPreamble
-
 End
 
+Counter example
+    WithIn chapter
+End
+
+Style Example
+    CopyStyle Definition
+    LaTeXName example
+    LabelString "Example \theexample. "
+    RefPrefix "eg"
+    Preamble
+        \theoremstyle{definition}
+        \providecommand{\examplename}{Example}
+        \newtheorem{example}{\examplename}
+    EndPreamble
+End
 
 # Markings
-
 
 InsetLayout "Flex:Example mark|E"
 	LyXType				custom
