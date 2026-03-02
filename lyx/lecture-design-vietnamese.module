@@ -17,9 +17,8 @@ Preamble
     \def\examplename{Ví dụ}
     \def\TypesetProofSection#1{Chứng minh cho \S#1}
     \def\TypesetSolutionSection#1{Lời giải cho~#1}
-    \def\ProofHintText#1{Xem chứng minh ở trang #1}
+    \def\ProofHintText#1{Xem chứng minh ở trang #1.}
     \SetMarkLabel{SolutionHint}{Giải:~tr.\,}
-    \SetMarkLabel{ProofHint}{C/M:~tr.\,}
     \SetMarkLabel{Example}{Ví dụ}
     \SetMarkLabel{Quick}{Chữa nhanh}
     \SetMarkLabel{Answer}{Ans:~}
