@@ -84,6 +84,19 @@ Style Proof
 	End
 End 
 
+Style "Proof (Direct)"
+    CopyStyle Solution
+	LaTeXName proof-typeset
+	LabelString "Proof (Direct)"
+    RefPrefix "proof"
+	Font
+	  Shape Up
+	EndFont
+	LabelFont
+        Shape Italic
+	End
+End 
+
 Counter theorem
     WithIn chapter
 End
@@ -113,10 +126,6 @@ Style Definition
     EndPreamble
 End
 
-Counter Remark
-    WithIn chapter
-End
-
 Style Remark
     CopyStyle Definition
     LaTeXName remark
@@ -125,7 +134,7 @@ Style Remark
     Preamble
         \theoremstyle{theorem}
         \providecommand{\remarkname}{Remark}
-        \newtheorem{remark}{\remarkname}
+        \newtheorem*{remark}{\remarkname}
     EndPreamble
 End
 
@@ -136,12 +145,14 @@ End
 Style Example
     CopyStyle Definition
     LaTeXName example
+    LabelCounter example
     LabelString "Example \theexample. "
     RefPrefix "eg"
     Preamble
         \theoremstyle{definition}
         \providecommand{\examplename}{Example}
         \newtheorem{example}{\examplename}
+        \counterwithin{example}{chapter}
     EndPreamble
 End
 

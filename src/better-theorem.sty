@@ -6,13 +6,25 @@
 % Provide names
 \providecommand{\theoremname}{Theorem}
 \providecommand{\proofname}{Proof}
+
+% This is the section heading for proof sections
+% E.g. Section 2.1: Proof for S1.1
+% The #1 is the section number
 \providecommand{\TypesetProofSection}[1]{Proofs~for~#1}
-\providecommand{\TypesetProofHint}[1]{[See~proof~on~page:~#1]}
+
+% Typeset hint for proof.
+% The #1 is the page number.
+\providecommand{\ProofHintText}[1]{See~page~#1.}
+
+\providecommand{\TypesetProofHint}[1]{%
+  \begin{proof-typeset}\ProofHintText{#1}%
+  \end{proof-typeset}%
+}
 
 % Rename the proof environment to patch it
 \NewCommandCopy{\amsthmproof}{\proof}
 \NewCommandCopy{\endamsthmproof}{\endproof}
-\newenvironment{proof_typeset}[1][\proofname]{\amsthmproof[#1]}{\endamsthmproof}
+\newenvironment{proof-typeset}[1][\proofname]{\amsthmproof[#1]}{\endamsthmproof}
 
 % Theorem environment with numbering
 \theoremstyle{plain}

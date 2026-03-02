@@ -15,15 +15,16 @@ Preamble
     \def\solutionname{Lời giải}
     \def\remarkname{Chú ý}
     \def\examplename{Ví dụ}
-    \def\TypesetProofSection#1{Chứng minh cho #1}
+    \def\TypesetProofSection#1{Chứng minh cho \S#1}
     \def\TypesetSolutionSection#1{Lời giải cho~#1}
+    \def\ProofHintText#1{Xem lời giải ở trang #1}
     \SetMarkLabel{SolutionHint}{Giải:~tr.\,}
     \SetMarkLabel{ProofHint}{C/M:~tr.\,}
     \SetMarkLabel{Example}{Ví dụ}
     \SetMarkLabel{Quick}{Chữa nhanh}
     \SetMarkLabel{Answer}{Ans:~}
     \SetMarkLabel{Official index}{Index:~}
-    \SetMarkLabel{Must-do}{Nên chữa}
+    \SetMarkLabel{MustDo}{Nên chữa}
     \SetMarkLabel{Danger}{[!]~}
 EndPreamble
 
@@ -41,6 +42,10 @@ End
 
 Style Proof
 	LabelString "Chứng minh. "
+End 
+
+Style "Proof (Direct)"
+	LabelString "Chứng minh (viết luôn). "
 End 
 
 Style Theorem
